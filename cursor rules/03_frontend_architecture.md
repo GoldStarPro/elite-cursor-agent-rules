@@ -1,6 +1,6 @@
 ---
 description: Universal modern frontend architecture guidelines, component separation, client state management, and full-stack Frontend BFF layers.
-globs: "**/*.tsx,**/*.jsx,**/*.vue,**/*.svelte,**/*.ts,**/*.razor,**/*.cshtml
+globs: "**/*.tsx,**/*.jsx,**/*.vue,**/*.svelte,**/*.ts,**/*.razor,**/*.cshtml"
 ---
 
 # PROJECT ENGINEERING - UNIVERSAL FRONTEND ARCHITECTURE

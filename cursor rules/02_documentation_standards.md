@@ -1,6 +1,6 @@
 ---
 description: Documentation organization, hybrid language policy, adaptive structural standards, and visual formatting.
-globs: **/docs/**/*,**/testing/**/*
+globs: "**/docs/**/*,**/testing/**/*"
 ---
 
 # PROJECT ENGINEERING - DOCUMENTATION & TESTING STANDARDS

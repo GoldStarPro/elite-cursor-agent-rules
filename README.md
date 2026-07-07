@@ -25,3 +25,8 @@ Cursor now supports project-specific rules via `.mdc` files inside the `.cursor/
 * **`01_core_workflow.mdc`**: Controls the AI planning and code execution lifecycle (Always Apply).
 * **`02_documentation_standards.mdc`**: Enforces high-density system documentation in the `/docs` folder.
 * **`03_*_architecture.mdc`**: Context-aware architecture guardrails triggered automatically by file extensions.
+
+> ⚠️ **Important Note on File Extensions & Syntax:** 
+> Inside this repository, files are saved with the `.md` extension so GitHub can render the markdown preview correctly. Because GitHub's YAML parser treats the asterisk (`*`) as a reserved character, the `globs` values are wrapped in double quotes `""`. 
+> 
+> When you copy these files into your project's `.cursor/rules/` directory and rename them to `.mdc`, **you must remove the double quotes surrounding the globs**. Cursor natively interprets raw glob patterns without quotes (e.g., change `globs: "**/docs/**/*"` back to `globs: **/docs/**/*`).

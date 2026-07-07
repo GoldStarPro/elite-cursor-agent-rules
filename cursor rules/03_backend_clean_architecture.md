@@ -1,6 +1,6 @@
 ---
 description: Clean Architecture, DDD boundaries, production integrity, and bootstrap extension rules.
-globs: **/*.cs,**/*.java,**/*.go,**/*.py,**/*.rb,**/*.ts
+globs: "**/*.cs,**/*.java,**/*.go,**/*.py,**/*.rb,**/*.ts"
 ---
 
 # PROJECT ENGINEERING - UNIVERSAL BACKEND ARCHITECTURE
