@@ -1,0 +1,36 @@
+---
+description: Clean Architecture, DDD boundaries, production integrity, and bootstrap extension rules.
+globs: **/*.cs,**/*.java,**/*.go,**/*.py,**/*.rb,**/*.ts
+---
+
+# PROJECT ENGINEERING - UNIVERSAL BACKEND ARCHITECTURE
+
+> **BACKEND SCOPE:** Applies to server-side logic, data persistence, and business rules only. STOP immediately for pure UI files (components, styles, markup).
+
+## 0. EXTEND THE BOOTSTRAP — DO NOT REINVENT
+- Follow the **existing** solution structure, naming, patterns, and dependencies established at project bootstrap.
+- New code must fit the current layers and conventions. If a pattern already exists (e.g. MediatR handlers, repository interfaces, EF configurations), reuse it — do not introduce a competing pattern.
+- When unsure, inspect similar existing features first, then mirror that approach.
+
+## 1. THE DEPENDENCY RULE (Clean Architecture + DDD)
+Dependencies point INWARDS only. Inner layers never import outer-layer libraries.
+- **Domain:** Entities, Value Objects, domain services. Zero framework/ORM dependencies.
+- **Application:** Use cases, DTOs, interfaces/contracts. Depends ONLY on Domain.
+- **Infrastructure:** ORM, external SDKs, file I/O. Implements Application interfaces.
+- **Presentation / API:** Controllers, routes, middleware. Delegates to Application only.
+
+**Pragmatic persistence:** ORM attributes, `DbContext`, migrations, and SQL scripts belong in Infrastructure — never in Domain. Map persistence models to domain entities inside Infrastructure.
+
+## 2. STRUCTURAL INTEGRITY
+- NEVER call Infrastructure directly from Presentation — go through Application.
+- NEVER expose ORM/persistence entities in API responses; map to DTOs/ViewModels.
+- Controllers handle HTTP; handlers/services handle business rules; repositories handle persistence.
+- **JSON contract:** Serializer MUST output **camelCase** for frontend TypeScript alignment.
+
+## 3. PRODUCTION INTEGRITY
+- **Secrets:** Never hardcode credentials, connection strings, or API keys. Use environment variables or secret stores.
+- **Input validation:** Validate at the API boundary (model binding, FluentValidation, or equivalent).
+- **Errors:** Return consistent, safe error responses — no stack traces or internal details in production.
+- **Data access:** Use parameterized queries / ORM safely; avoid N+1 queries; wrap multi-step writes in transactions when needed.
+- **Tests:** When the project has a test setup, add or update tests for new use cases and critical paths — do not ship feature logic without coverage when tests already exist in the repo.
+- **Asynchronous programming**: Always prefer async/await patterns for I/O bound tasks (database queries, network requests) to prevent thread pool starvation.

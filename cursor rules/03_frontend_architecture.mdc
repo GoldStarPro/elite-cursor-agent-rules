@@ -1,0 +1,28 @@
+---
+description: Universal modern frontend architecture guidelines, component separation, client state management, and full-stack Frontend BFF layers.
+globs: "**/*.tsx,**/*.jsx,**/*.vue,**/*.svelte,**/*.ts,**/*.razor,**/*.cshtml
+---
+
+# PROJECT ENGINEERING - UNIVERSAL FRONTEND ARCHITECTURE
+
+> 🛡️ **FRONTEND SCOPE GUARDRAIL:** 
+> - This rule ONLY applies to user interface elements, client-side state, styling, visual presentation, and edge BFF routing layers.
+> - EXCLUDE heavy core backend business logic systems (which should reside in the dedicated backend repository).
+
+Regardless of the framework (React, Next.js, Vue, Nuxt, Angular, Blazor), strictly adhere to modern frontend component-driven development principles:
+
+## 1. COMPONENT SEPARATION (Smart vs. Dumb)
+- **UI/Dumb Components:** Purely presentational elements (Buttons, Inputs, Cards). They receive data via props, emit events, and have NO dependencies on global state, API fetching, or complex business logic.
+- **Feature/Smart Components:** Container components that handle business logic, interface with global state (Redux/Zustand/Pinia), perform API calls, and pass data down to UI components.
+
+## 2. STATE LOGIC DECOUPLING & BFF BRIDGE
+- NEVER write complex business logic, heavy data transformations, or direct API fetch calls directly inside a UI component's rendering block.
+- **BFF / Server-Side Fetching Exception:** Full-stack frontend framework mechanisms (e.g., Next.js Server Components, Next.js Route Handlers/Server Actions, Nuxt Server Routes) are strictly allowed and encouraged to perform direct asynchronous data fetching for SSR/ISR optimization. 
+- Keep these BFF routing layers as clean, lightweight orchestrators mapping requests directly to DTOs or external backend API services without standalone heavy architectures.
+- Extract client-side state management and side effects into custom hooks/composition functions (for React/Vue) OR dedicated Service classes / State Containers (for Blazor/C# Dependency Injection).
+
+## 3. STYLING & PERFORMANCE STANDARD
+- Keep styling scalable (whether using Utility-first like Tailwind, CSS Modules, or SCSS). Avoid polluting global CSS.
+- Ensure proper loading states (Skeletons/Spinners) and graceful error handling (Error Boundaries) for all asynchronous operations.
+- Maintain base accessibility (a11y) standards: proper ARIA labels, alt text, and semantic HTML tags.
+- Component Size & SEO: Aim to keep components under 150 lines of code; refactor into sub-components if exceeded. Prioritize semantic HTML and leverage framework-specific SEO/metadata APIs from the start.
